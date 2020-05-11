@@ -163,36 +163,36 @@ public class Main {
         int[] registerTab = new int[size];
         int i;
         StringBuilder random = new StringBuilder();
-        List<Integer> taps = new ArrayList<>();
-        List<Integer> outXor = new ArrayList<>();
+        List<Integer> taps = new ArrayList<>();//pozycje przy których należy wukonac operacje xor
+        List<Integer> outXor = new ArrayList<>(); // wynik (klucz)
 
         for (i = 0; i < polynomial.length(); i++) {
 
-
+            //wypełnienie pierwszego wiersza
             registerTab[i] = Integer.parseInt(String.valueOf(seed.charAt(i)));
 
-
+            // zapisywanie pozycji(indeksów) xor
             if (polynomial.charAt(i) == '1')
                 taps.add(i);
         }
 
 
         for (i = 0; i < length; i++) {
-            int xor = xor(registerTab[taps.get(taps.size() - 1)], registerTab[taps.get(taps.size() - 2)]);
+            int xor = xor(registerTab[taps.get(taps.size() - 1)], registerTab[taps.get(taps.size() - 2)]);// pierwsza operacja xor (xorujemy pierwsze dwa bity których indeksy zapisaliśmy na liście taps)
 
             for (int t = taps.size() - 3; t >= 0; t--) {
-                xor = xor(xor, registerTab[taps.get(t)]);
+                xor = xor(xor, registerTab[taps.get(t)]);// pozostałe operacje xor w przypadku gdy wielomian posiada wiecej niz dwa x
 
             }
 
-            outXor.add(xor);
+            outXor.add(xor); // przekazanie wyniku bitu do naszego klucza
 
 
 
             for (int j = size - 1; j > 0; j--) {
-                registerTab[j] = registerTab[j - 1];
+                registerTab[j] = registerTab[j - 1];// pezsuniecie o jeden bit
             }
-            registerTab[0] = xor;
+            registerTab[0] = xor;//wyełnienie pierszego bitu nowego wiersza przez wynik wszystkich peracji xor
         }
 
         return outXor;
@@ -238,37 +238,37 @@ public class Main {
 
     private static void generateRandom(String seed, String polynomial, int length) {
         int size = seed.length();
-        int[] registerTab = new int[size];
+        int[] registerTab = new int[size]; // tablica która wypełniamy kolejnymi operacjami
         int i;
         StringBuilder random = new StringBuilder();
-        List<Integer> taps = new ArrayList<>();
+        List<Integer> taps = new ArrayList<>();  // lista przechowywujaca indeksy przy których należy wykonac operacje xor
 
         for (i = 0; i < polynomial.length(); i++) {
 
-            //fill register tab
+            //wypełnienie pierwszego wiersza
             registerTab[i] = Integer.parseInt(String.valueOf(seed.charAt(i)));
 
-            // find taps
+            // zapisywanie pozycji(indeksów) xor
             if (polynomial.charAt(i) == '1')
                 taps.add(i);
         }
 
 
         for (i = 0; i < length; i++) {
-            int xor = xor(registerTab[taps.get(taps.size() - 1)], registerTab[taps.get(taps.size() - 2)]);
+            int xor = xor(registerTab[taps.get(taps.size() - 1)], registerTab[taps.get(taps.size() - 2)]); // pierwsza operacja xor (xorujemy pierwsze dwa bity których indeksy zapisaliśmy na liście taps)
 
             for (int t = taps.size() - 3; t >= 0; t--) {
-                xor = xor(xor, registerTab[taps.get(t)]);
+                xor = xor(xor, registerTab[taps.get(t)]); // pozostałe operacje xor w przypadku gdy wielomian posiada wiecej niz dwa x
             }
 
 
             if (i != 0)
-                printNumber(registerTab);
+                printNumber(registerTab); //wypisywanie wiersza
 
             for (int j = size - 1; j > 0; j--) {
-                registerTab[j] = registerTab[j - 1];
+                registerTab[j] = registerTab[j - 1]; //przesuniecie o jeden bit (powstaje nowy wiersz)
             }
-            registerTab[0] = xor;
+            registerTab[0] = xor; // zastąpienie pierszego bitu wynikiem wszystkich operacji xor
         }
 
 
@@ -282,7 +282,7 @@ public class Main {
     private static void printNumber(int[] number) {
         int dec = 0;
         for (int i = 0; i < number.length; i++) {
-            dec += (int) (Integer.parseInt(String.valueOf(number[i])) * Math.pow(2, number.length - i - 1));
+            dec += (int) (Integer.parseInt(String.valueOf(number[i])) * Math.pow(2, number.length - i - 1));// zamiana liczby binarnej na dziesetna
             System.out.print(number[i]);
         }
         System.out.print(" (" + dec + ")" + "\n");
