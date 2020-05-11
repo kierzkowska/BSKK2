@@ -13,7 +13,7 @@ public class Main {
 
 
     public static void main(String[] args) throws FileNotFoundException {
-        // write your code here
+
 
         while (true) {
             System.out.println("------------------------------------");
@@ -42,7 +42,11 @@ public class Main {
 
     }
 
-
+    /**
+     * interfejs konsolowy
+     pobiera wielomian, ziarno oraz ilość liczb do wygenerowania
+     wywołuje funkcje generateRandom czyli generującą randomową liczbę w postaci binarnej
+     */
     private static void zad1() {
         System.out.println("Podaj wielomian:");
         String polynomial = scanner.next();
@@ -56,6 +60,10 @@ public class Main {
 
     }
 
+    /**
+    Odpytywanie użytkownika o to czy wybiera szyfrowanie czy odszyfrowanie,
+     w zależności od tego wywołuje funkcję synchronousStreamCipher z parametrem true lub false.
+     */
     private static void zad2() throws FileNotFoundException {
 
         System.out.println("1. Zakoduj wiadomosc");
@@ -149,7 +157,7 @@ public class Main {
         saveToFile(getWordFromBytes(stringBuilder)); //zamiana ciągu bitów na słowo typu String i jego zapis w pliku tekstowym w celu poznijeszego odczytu
 
     }
-//do zadania 2
+    //do zadania 2
     private static List<Integer> generateKey(String seed, String polynomial, int length) {
         int size = seed.length();
         int[] registerTab = new int[size];
@@ -266,7 +274,7 @@ public class Main {
 
     }
 
-
+    // w jezyku java za operacje xor odpowiada ^
     public static int xor(int a, int b) {
         return a ^ b;
     }
