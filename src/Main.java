@@ -71,7 +71,12 @@ public class Main {
         }
     }
 
-    //wczytywanie z pliku - zwraca ciag znakow binarnie
+
+    /**
+     * Wczytywanie z pliku
+     * @return - zwraca ciąg znaków binarnych
+     * @throws FileNotFoundException
+     */
     private static String readFromFile() throws FileNotFoundException {
         System.out.println("Podaj nazwę pliku wejściowego");
         String fileName = scanner.next();
@@ -83,13 +88,13 @@ public class Main {
             for (int i = 0; i < word.length(); i++) {
                 String letter = String.valueOf(word.charAt(i));
 
-                //  kod ascii
-                byte[] letterBytes = letter.getBytes(Charset.forName("UTF-8"));
+                //Utworzenie tablicy bitów z  podanega słowa
+                byte[] letterBytes = letter.getBytes(StandardCharsets.UTF_8);
 
-                //binarna
+                //Postać binarna litery
                 Integer binLetter = Integer.parseInt(Integer.toBinaryString(Integer.parseInt(String.valueOf(letterBytes[0]))));
 
-                //dopelnianie do 7 bitow
+                //Dopelnianie do 7 bitow
                 if (binLetter.toString().length() < 7) {
                     for (int z = 0; z < 7 - binLetter.toString().length(); z++) {
                         bytes.append(0);
@@ -98,7 +103,6 @@ public class Main {
                 bytes.append(binLetter);
             }
 
-//            letter = Byte.parseByte(fileScanner.next());
         }
         fileScanner.close();
         return bytes.toString();
@@ -196,6 +200,12 @@ public class Main {
         return newWord;
     }
 
+    /**
+     * Metoda jest wywoływana w metodzie synchronousStreamCipher,
+     * i służy do zamiany ciągu bitów na słowo typu String aby można to było zapisać w pliku tekstowym i konfortowo odczytać
+     * @param bytes - ciąg bitów który będzie konwertowany na String
+     * @return hasło typu String
+     */
     private static StringBuilder getWordFromBytes(StringBuilder bytes) {
         StringBuilder answer = new StringBuilder();
         for (int i = 0; i < bytes.length(); i += 7) {
@@ -217,6 +227,7 @@ public class Main {
 
 
     //do zadania 1
+
     private static void generateRandom(String seed, String polynomial, int length) {
         int size = seed.length();
         int[] registerTab = new int[size];
