@@ -113,40 +113,40 @@ public class Main {
         byte[] binaryWords;
         Integer[] binaryArray;
         List<Integer> key;
-        StringBuilder stringBuilder = new StringBuilder(); //sluzy do budowania zaszyfrowanej postaci tekstu
+        StringBuilder stringBuilder = new StringBuilder();
 
         String bytes; //haslo do zakodowania w postaci binarnej
-        bytes = readFromFile(); //odczytywanie hasla z pliku - zwraca ciag znakow binarnie
-        binaryWords = convertToArray(bytes); ///przeksztalcenie ciagu znakow binarnych na tablice
+        bytes = readFromFile();
+        binaryWords = convertToArray(bytes);
 
         System.out.println("Podaj wielomian:");
-        String polynomial = scanner.next(); //postac wielomianu
+        String polynomial = scanner.next();
         System.out.println("Podaj ziarno:");
-        String seed = scanner.next(); //podane ziarno
-        int length = bytes.length(); //dlugosc hasla do zakodowania
+        String seed = scanner.next();
+        int length = bytes.length();
 
         binaryArray = new Integer[length];
 
 
-        key = generateKey(seed, polynomial, length); //klucz, czyli generowane bity
+        key = generateKey(seed, polynomial, length);
 
 
-        if (encode) { //jesli wybierzemy kodowanie
-            for (int x = 0; x < length; x++) { //wykonujemy petle tyle razy co dlugosc hasla do zakodowania
+        if (encode) {
+            for (int x = 0; x < length; x++) {
 
-                binaryArray[x] = xor(key.get(x), binaryWords[x]); //podstawianie do tablicy kolejno elementow klucza(generowanych bitów) i elementow binaryWords(przeksztalconego ciagu znakow binarnych na tablice) wykonanych operacją xor
-                stringBuilder.append(binaryArray[x]); //wywolujemy metode StringBuildera(append) i budujemy zaszyfrowaną postac tekstu
+                binaryArray[x] = xor(key.get(x), binaryWords[x]);
+                stringBuilder.append(binaryArray[x]);
 
             }
-        } else { //w przeciwnym wypadku
-            for (int x = 0; x < length; x++) { //wykonujemy petle tyle razy co dlugosc hasla
+        } else {
+            for (int x = 0; x < length; x++) {
 
                 binaryArray[x] = xor(key.get(x), binaryWords[x]);
                 stringBuilder.append(binaryArray[x]);
 
             }
         }
-        saveToFile(getWordFromBytes(stringBuilder)); //zamiana ciągu bitów na słowo typu String i jego zapis w pliku tekstowym w celu poznijeszego odczytu
+        saveToFile(getWordFromBytes(stringBuilder));
 
     }
 //do zadania 2
@@ -191,15 +191,14 @@ public class Main {
 
     }
 
-    private static byte[] convertToArray(String word) { //pobranie ciagu znakow binarnych i przeksztalcenie ich na tablice
-        byte[] newWord; //pomocnicza zmienna tablica
+    private static byte[] convertToArray(String word) {
+        byte[] newWord;
         newWord = new byte[word.length()];
-        for (int i = 0; i < word.length(); i++) { //przejscie przez cala dlugosc znakow
-            newWord[i] = (byte) Integer.parseInt(String.valueOf(word.charAt(i))); //tworzenie nowego slowa w postaci tablicy
+        for (int i = 0; i < word.length(); i++) {
+            newWord[i] = (byte) Integer.parseInt(String.valueOf(word.charAt(i)));
         }
         return newWord;
     }
-
 
     /**
      * Metoda jest wywoływana w metodzie synchronousStreamCipher,
@@ -220,11 +219,12 @@ public class Main {
 
     }
 
-    private static void saveToFile(StringBuilder content) throws FileNotFoundException { //funkcja zapisujaca zaszyfrowane dane do pliku
-        PrintWriter save = new PrintWriter("out.txt"); //użyie klasy PrintWriter i utworzenie jej obiektu, podając jako parametr konstruktora nazwę pliku out.txt
-        save.println(content); //zapisanie do pliku zaszyfrowanej zawartosci
-        save.close(); //zamkniecie pliku
+    private static void saveToFile(StringBuilder content) throws FileNotFoundException {
+        PrintWriter save = new PrintWriter("out.txt");
+        save.println(content);
+        save.close();
     }
+
 
     //do zadania 1
 
