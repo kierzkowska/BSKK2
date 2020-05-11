@@ -117,7 +117,7 @@ public class Main {
 
         String bytes; //haslo do zakodowania w postaci binarnej
         bytes = readFromFile(); //odczytywanie hasla z pliku - zwraca ciag znakow binarnie
-        binaryWords = convertToArray(bytes); //przeksztalcenie ciagu znakow binarnych na tablice
+        binaryWords = convertToArray(bytes); ///przeksztalcenie ciagu znakow binarnych na tablice
 
         System.out.println("Podaj wielomian:");
         String polynomial = scanner.next(); //postac wielomianu
